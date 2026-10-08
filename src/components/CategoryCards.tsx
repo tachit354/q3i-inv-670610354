@@ -7,6 +7,7 @@ import {
   Shirt,
   Wrench,
   MoreHorizontal,
+  icons,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -18,6 +19,8 @@ const iconMap: Record<string, React.ReactNode> = {
   Tools: <Wrench className="h-4 w-4" />,
   Other: <MoreHorizontal className="h-4 w-4" />,
 };
+
+// const serachIcon = (categoty: string) => iconMap
 
 export function CategoryCards() {
   const inventory = useItemStore((state) => state.inventory);
@@ -39,9 +42,26 @@ export function CategoryCards() {
 
         return (
           // Use Card component to display values by category
+
           <div>
-            {category.label} - ฿{categoryValue.toFixed(2)} - {categoryUnits}{" "}
-            units
+            {/* {category.label} - ฿{categoryValue.toFixed(2)} - {categoryUnits}{" "}
+            units */}
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium">
+                  {/* icon */}
+                  {category.label}
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-xl font-bold">
+                  ฿{categoryValue.toFixed(2)}
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  {categoryUnits} units
+                </div>
+              </CardContent>
+            </Card>
           </div>
         );
       })}

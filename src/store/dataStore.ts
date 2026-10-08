@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { type InventoryItem } from "../types/datatypes";
+import { categoryOptions } from "../types/datatypes";
 
 interface ItemState {
   inventory: InventoryItem[];
@@ -12,6 +13,10 @@ interface ItemState {
   ) => void;
   // deleteInventoryItem: (id: string) => void;
 }
+
+
+const IdItems = (category: InventoryItem["category"]) => categoryOptions.find((c) => c.value === category)?.id ?? category;
+
 
 export const useItemStore = create<ItemState>()(
   persist(
@@ -67,11 +72,12 @@ export const useItemStore = create<ItemState>()(
           date: "2026-10-04",
         },
       ],
+      // Date.now().toString(),
       addInventoryItem: (name, quantity, price, category) =>
         set((state) => ({
           inventory: [
             {
-              id: Date.now().toString(),
+              id: IdItems(category).toString(),
               name,
               quantity,
               price,
@@ -85,7 +91,7 @@ export const useItemStore = create<ItemState>()(
     }),
     {
       // Unique key name for the localStorage entry
-      name: "app-storage",
+      name: "inv-670610354",
     },
   ),
 );
